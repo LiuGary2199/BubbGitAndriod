@@ -196,57 +196,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95104193}
   m_CullTransparentMesh: 1
---- !u!1 &395336976
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 395336978}
-  - component: {fileID: 395336977}
-  m_Layer: 0
-  m_Name: Adjust
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &395336977
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395336976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 525ece82a472e4dea837e1ef938fd15d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startManually: 1
-  eventBuffering: 0
-  sendInBackground: 0
-  launchDeferredDeeplink: 1
-  appToken: kdwe7nxuaj9c
-  logLevel: 1
-  environment: 1
---- !u!4 &395336978
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 395336976}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,9 +586,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d28c1ed7db50d547af085410e088bb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_SDK_KEY: /H92tOtxpjG0CFnozjQZS3cfaR9ETdXBl521o1SikFk+k+w/l4xgUQEPX7yAXF+a/da/jqnx8H2OYMXGEXaYqI75wPdQgK9dkPuWimc7YdiDQMfqwfcPaA==
-  MAX_REWARD_ID: e1c8af204ac54807
-  MAX_INTER_ID: f789065c1a1e1f51
+  MAX_SDK_KEY: BkGUm1ej3zKI34yoKPxzN0Yy4TwMU2B77e3OhQbFKaZCjBMX7y1LzswhgnPAieAWM1gO1hTqapaaf89/4djfA52yYrIjcR2+2YkwNXEkIcK4HUCUP9vLiQ==
+  MAX_REWARD_ID: 8f2fd10cb249a722
+  MAX_INTER_ID: 70fbca626f922a02
   isTest: 0
 --- !u!4 &952907790
 Transform:
@@ -876,12 +825,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb04da7064d71145be2507de02e8eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseUrl: http://infinitequickplay.top/
-  BaseLoginUrl: http://infinitequickplay.top//api/client/user/getId?gameCode=
-  BaseConfigUrl: http://infinitequickplay.top//api/client/config?gameCode=
-  BaseTimeUrl: http://infinitequickplay.top//api/client/common/current_timestamp?gameCode=
-  BaseAdjustUrl: http://infinitequickplay.top//api/client/user/setAdjustId?gameCode=
-  GameCode: 21293
+  BaseUrl: http://picogames.top
+  BaseLoginUrl: http://picogames.top/api/client/user/getId?gameCode=
+  BaseConfigUrl: http://picogames.top/api/client/config?gameCode=
+  BaseTimeUrl: http://picogames.top/api/client/common/current_timestamp?gameCode=
+  BaseAdjustUrl: http://picogames.top/api/client/user/setAdjustId?gameCode=
+  GameCode: 21313
   Channel: IOS
   country: 
   adManager: {fileID: 952907788}
@@ -915,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e6df239df9c4b43bb3f9a4eb3d000d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appid: 6751802936
+  appid: com.mahjongmatch.cashgame
 --- !u!114 &1553519647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -928,7 +877,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 188b98d692fe6ab49bb467109884fc45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjustID: kdwe7nxuaj9c
+  adjustID: 30q6jpp7v9ts
 --- !u!114 &1553519650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,8 +890,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6562d5e784b4ed347ad1779ae4551e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _LoginPlatform: 1
-  AppInfo: 61
+  _LoginPlatform: 0
+  AppInfo: 48
   Account: 
   Data:
     UserID: 
@@ -1242,6 +1191,57 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1837217524
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837217526}
+  - component: {fileID: 1837217525}
+  m_Layer: 0
+  m_Name: Adjust
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1837217525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837217524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525ece82a472e4dea837e1ef938fd15d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startManually: 1
+  eventBuffering: 0
+  sendInBackground: 0
+  launchDeferredDeeplink: 1
+  appToken: 30q6jpp7v9ts
+  logLevel: 1
+  environment: 1
+--- !u!4 &1837217526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837217524}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1870111249
 GameObject:
   m_ObjectHideFlags: 0

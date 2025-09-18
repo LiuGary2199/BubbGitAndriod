@@ -56,6 +56,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "BubbleMatch.sln",
+    "dotnet.defaultSolution": "BM.sln",
     "dotnet.preferCSharpExtension": true
 }
