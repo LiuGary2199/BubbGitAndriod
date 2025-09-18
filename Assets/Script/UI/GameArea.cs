@@ -52,7 +52,11 @@ public class GameArea : MonoBehaviour
     public RectTransform particalObj;
     [Header("保底机制")]
     private bool hasTriggeredGuarantee = false; // 是否已触发保底操作
+    private bool hasTriggeredLevelGuarantee = false; // Level模式保底机制是否已触发
+    private float lastLevelGuaranteeCheckTime = 0f; // 上次Level保底检测时间
+    private float levelGuaranteeCheckInterval = 1f; // Level保底检测间隔（秒）
 
+    public GameObject Tipsobj;
 
     public void Init()
     {
@@ -1437,6 +1441,8 @@ public class GameArea : MonoBehaviour
         
         // 重置保底机制状态
         hasTriggeredGuarantee = false;
+        hasTriggeredLevelGuarantee = false;
+        lastLevelGuaranteeCheckTime = 0f;
 
         // 🎯 新增：重置进度条
         ResetProgressBar();
@@ -2451,5 +2457,137 @@ public class GameArea : MonoBehaviour
         {
             // Debug.LogError("❌ 3消完整性验证失败！");
         }
+    }
+    public void RefShowTips()
+    {
+        Tipsobj.SetActive(GameManager.Instance.GetGameType() == GameType.Challenge);
+    }
+
+    private void Update()
+    {
+        // Level模式保底机制检测（优化：按间隔检测，避免每帧都检测）
+        if (Time.time - lastLevelGuaranteeCheckTime >= levelGuaranteeCheckInterval)
+        {
+            CheckLevelGuaranteeMechanism();
+            lastLevelGuaranteeCheckTime = Time.time;
+        }
+    }
+
+    /// <summary>
+    /// Level模式保底机制检测 - 每关只触发一次
+    /// 当场上不再生成新球且总球数小于6时，检测是否完美匹配，无法匹配时自动生成小球补全
+    /// </summary>
+    private void CheckLevelGuaranteeMechanism()
+    {
+        // 只在Level模式下且未触发过保底时执行
+        GameType gameType = GameManager.Instance.GetGameType();
+        if (gameType != GameType.Level || hasTriggeredLevelGuarantee)
+        {
+            return;
+        }
+
+        // 检查是否所有球都已掉落完成
+        if (bubblesRemaining > 0)
+        {
+            return;
+        }
+
+        // 计算当前场上所有泡泡总数
+        int totalFieldBubbles = GetCurrentFieldBubbleCount();
+        
+        // 检查总球数是否小于6
+        if (totalFieldBubbles > 6)
+        {
+            return;
+        }
+
+         Debug.Log($"Level保底检测：场上总球数{totalFieldBubbles}个，开始分析可消除性");
+
+        // 分析场上所有泡泡的可消除性
+        var bubbleAnalysis = AnalyzeAllBubblesForElimination();
+        
+        // 检查是否有无法完美消除的泡泡
+        if (HasUneliminatableBubbles(bubbleAnalysis))
+        {
+            // 触发Level模式保底机制
+            TriggerLevelGuaranteeMechanism(bubbleAnalysis);
+        }
+    }
+
+    /// <summary>
+    /// 触发Level模式保底机制 - 生成补充泡泡确保完美消除
+    /// </summary>
+    private void TriggerLevelGuaranteeMechanism(Dictionary<ImageEnum, int> typeCounts)
+    {
+        hasTriggeredLevelGuarantee = true;
+        
+        // Debug.Log("=== 触发Level模式保底机制 ===");
+        
+        // 计算需要补充的泡泡
+        List<ImageEnum> bubblesToSpawn = CalculateLevelGuaranteeBubbles(typeCounts);
+        
+        if (bubblesToSpawn.Count > 0)
+        {
+            // Debug.Log($"需要生成 {bubblesToSpawn.Count} 个保底泡泡");
+            
+            // 生成补充泡泡
+            StartCoroutine(SpawnLevelGuaranteeBubbles(bubblesToSpawn));
+        }
+        else
+        {
+            // Debug.Log("场上泡泡已完美匹配，无需保底");
+        }
+    }
+
+    /// <summary>
+    /// 计算Level模式保底需要补充的泡泡
+    /// </summary>
+    private List<ImageEnum> CalculateLevelGuaranteeBubbles(Dictionary<ImageEnum, int> typeCounts)
+    {
+        List<ImageEnum> bubblesToSpawn = new List<ImageEnum>();
+        
+        foreach (var kvp in typeCounts)
+        {
+            ImageEnum type = kvp.Key;
+            int count = kvp.Value;
+            int remainder = count % 3;
+            
+            if (remainder > 0)
+            {
+                // 需要补充到下一个3的倍数
+                int needToAdd = 3 - remainder;
+                for (int i = 0; i < needToAdd; i++)
+                {
+                    bubblesToSpawn.Add(type);
+                }
+                
+                // Debug.Log($"类型 {type} 当前有 {count} 个，需要补充 {needToAdd} 个");
+            }
+        }
+        
+        return bubblesToSpawn;
+    }
+
+    /// <summary>
+    /// 生成Level模式保底泡泡的协程
+    /// </summary>
+    private IEnumerator SpawnLevelGuaranteeBubbles(List<ImageEnum> bubblesToSpawn)
+    {
+        // Debug.Log($"开始生成 {bubblesToSpawn.Count} 个Level保底泡泡");
+        
+        // 更新剩余泡泡数（用于进度计算）
+        bubblesRemaining = bubblesToSpawn.Count;
+        
+        // 逐个生成保底泡泡
+        for (int i = 0; i < bubblesToSpawn.Count; i++)
+        {
+            SpawnSingleBubbleWithType(bubblesToSpawn[i]);
+            yield return new WaitForSeconds(spawnInterval);
+        }
+        
+        // 保底泡泡生成完成
+        bubblesRemaining = 0;
+        
+        // Debug.Log("Level保底泡泡生成完成，游戏现在可以完美消除");
     }
 }

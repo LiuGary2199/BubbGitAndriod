@@ -244,6 +244,8 @@ public class HomePanel : BaseUIForms
         m_MainPage.SetActive(false);
         m_GameArea.GameStart();
         m_NoteView.Init();
+        m_GameArea.collectAreaManager.RefShowTips();
+        m_GameArea.RefShowTips();
     }
 
 

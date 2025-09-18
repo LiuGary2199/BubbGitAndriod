@@ -7,6 +7,7 @@ public class TipsChallenge : BaseUIForms
 {
     public Button ToChallenge;
     public Button CloseView;
+    public Button CloseBtn;
     void Start()
     {
         ToChallenge.onClick.AddListener(() =>
@@ -17,6 +18,13 @@ public class TipsChallenge : BaseUIForms
         });
         CloseView.onClick.AddListener(() =>
         {   GameManager.Instance.SetGameType(GameType.Level);
+            SaveDataManager.SetBool(CConfig.sv_FirstChallenge, true);
+            GameEvents.FirstChallenge?.Invoke();
+            CloseUIForm(GetType().Name);
+        });
+        CloseBtn.onClick.AddListener(() =>
+        {
+            GameManager.Instance.SetGameType(GameType.Level);
             SaveDataManager.SetBool(CConfig.sv_FirstChallenge, true);
             GameEvents.FirstChallenge?.Invoke();
             CloseUIForm(GetType().Name);
